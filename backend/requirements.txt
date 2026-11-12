@@ -7,4 +7,4 @@ pyotp>=2.9,<3
 cryptography>=46,<51
 gunicorn>=23,<28
 whitenoise>=6.9,<7
-drf-spectacular-sidecar>=2025.1
+drf-spectacular-sidecar>=2026.10.1
