@@ -9,7 +9,7 @@
     "preview": "vite preview --host 127.0.0.1"
   },
   "dependencies": {
-    "i18next": "^25.6.0",
+    "i18next": "^27.0.1",
     "lucide-react": "^0.468.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
