@@ -13,7 +13,7 @@
     "lucide-react": "^0.468.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "react-i18next": "^16.2.0"
+    "react-i18next": "^18.0.1"
   },
   "devDependencies": {
     "@types/react": "^19.2.0",
