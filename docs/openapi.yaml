@@ -1,0 +1,3834 @@
+openapi: 3.0.3
+info:
+  title: OSSCM API
+  version: 1.0.0
+  description: Operational commands require Idempotency-Key. See docs/API.md.
+paths:
+  /api/v1/audit/:
+    get:
+      operationId: v1_audit_list
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - v1
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedAuditEventList'
+          description: ''
+  /api/v1/audit/{id}/:
+    get:
+      operationId: v1_audit_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this audit event.
+        required: true
+      tags:
+      - v1
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuditEvent'
+          description: ''
+  /api/v1/balances/:
+    get:
+      operationId: v1_balances_list
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - v1
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedStockBalanceList'
+          description: ''
+  /api/v1/balances/{id}/:
+    get:
+      operationId: v1_balances_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this stock balance.
+        required: true
+      tags:
+      - v1
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StockBalance'
+          description: ''
+  /api/v1/bins/:
+    get:
+      operationId: v1_bins_list
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - v1
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedBinList'
+          description: ''
+  /api/v1/bins/{id}/:
+    get:
+      operationId: v1_bins_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this bin.
+        required: true
+      tags:
+      - v1
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bin'
+          description: ''
+  /api/v1/commands/catalog/bins/:
+    post:
+      operationId: v1_commands_catalog_bins_create
+      parameters:
+      - in: header
+        name: Idempotency-Key
+        schema:
+          type: string
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateBin'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CreateBin'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CreateBin'
+        required: true
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/commands/catalog/bins/{id}/update/:
+    post:
+      operationId: v1_commands_catalog_bins_update_create
+      parameters:
+      - in: header
+        name: Idempotency-Key
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateBin'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UpdateBin'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UpdateBin'
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/commands/catalog/partners/:
+    post:
+      operationId: v1_commands_catalog_partners_create
+      parameters:
+      - in: header
+        name: Idempotency-Key
+        schema:
+          type: string
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePartner'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CreatePartner'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CreatePartner'
+        required: true
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/commands/catalog/partners/{id}/update/:
+    post:
+      operationId: v1_commands_catalog_partners_update_create
+      parameters:
+      - in: header
+        name: Idempotency-Key
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePartner'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UpdatePartner'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UpdatePartner'
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/commands/catalog/policies/:
+    post:
+      operationId: v1_commands_catalog_policies_create
+      parameters:
+      - in: header
+        name: Idempotency-Key
+        schema:
+          type: string
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSupplyPolicy'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CreateSupplyPolicy'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CreateSupplyPolicy'
+        required: true
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/commands/catalog/policies/{id}/update/:
+    post:
+      operationId: v1_commands_catalog_policies_update_create
+      parameters:
+      - in: header
+        name: Idempotency-Key
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateSupplyPolicy'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UpdateSupplyPolicy'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UpdateSupplyPolicy'
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/commands/catalog/products/:
+    post:
+      operationId: v1_commands_catalog_products_create
+      parameters:
+      - in: header
+        name: Idempotency-Key
+        schema:
+          type: string
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateProduct'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CreateProduct'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CreateProduct'
+        required: true
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/commands/catalog/products/{id}/update/:
+    post:
+      operationId: v1_commands_catalog_products_update_create
+      parameters:
+      - in: header
+        name: Idempotency-Key
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateProduct'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UpdateProduct'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UpdateProduct'
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/commands/catalog/warehouses/:
+    post:
+      operationId: v1_commands_catalog_warehouses_create
+      parameters:
+      - in: header
+        name: Idempotency-Key
+        schema:
+          type: string
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateWarehouse'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CreateWarehouse'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CreateWarehouse'
+        required: true
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/commands/catalog/warehouses/{id}/update/:
+    post:
+      operationId: v1_commands_catalog_warehouses_update_create
+      parameters:
+      - in: header
+        name: Idempotency-Key
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateWarehouse'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UpdateWarehouse'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UpdateWarehouse'
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/commands/credentials/create/:
+    post:
+      operationId: v1_commands_credentials_create_create
+      parameters:
+      - in: header
+        name: Idempotency-Key
+        schema:
+          type: string
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/credentials_createRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/credentials_createRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/credentials_createRequest'
+        required: true
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/commands/credentials/revoke/:
+    post:
+      operationId: v1_commands_credentials_revoke_create
+      parameters:
+      - in: header
+        name: Idempotency-Key
+        schema:
+          type: string
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/credentials_revokeRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/credentials_revokeRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/credentials_revokeRequest'
+        required: true
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/commands/deliveries/replay/:
+    post:
+      operationId: v1_commands_deliveries_replay_create
+      parameters:
+      - in: header
+        name: Idempotency-Key
+        schema:
+          type: string
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/deliveries_replayRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/deliveries_replayRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/deliveries_replayRequest'
+        required: true
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/commands/imports/commit/:
+    post:
+      operationId: v1_commands_imports_commit_create
+      parameters:
+      - in: header
+        name: Idempotency-Key
+        schema:
+          type: string
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/imports_commitRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/imports_commitRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/imports_commitRequest'
+        required: true
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/commands/imports/preview/:
+    post:
+      operationId: v1_commands_imports_preview_create
+      parameters:
+      - in: header
+        name: Idempotency-Key
+        schema:
+          type: string
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/imports_previewRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/imports_previewRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/imports_previewRequest'
+        required: true
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/commands/inventory/adjust/:
+    post:
+      operationId: v1_commands_inventory_adjust_create
+      parameters:
+      - in: header
+        name: Idempotency-Key
+        schema:
+          type: string
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/inventory_adjustRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/inventory_adjustRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/inventory_adjustRequest'
+        required: true
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/commands/inventory/disposition/:
+    post:
+      operationId: v1_commands_inventory_disposition_create
+      parameters:
+      - in: header
+        name: Idempotency-Key
+        schema:
+          type: string
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/inventory_dispositionRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/inventory_dispositionRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/inventory_dispositionRequest'
+        required: true
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/commands/inventory/reverse/:
+    post:
+      operationId: v1_commands_inventory_reverse_create
+      parameters:
+      - in: header
+        name: Idempotency-Key
+        schema:
+          type: string
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/inventory_reverseRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/inventory_reverseRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/inventory_reverseRequest'
+        required: true
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/commands/inventory/transfer-receive/:
+    post:
+      operationId: v1_commands_inventory_transfer_receive_create
+      parameters:
+      - in: header
+        name: Idempotency-Key
+        schema:
+          type: string
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/inventory_transfer_receiveRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/inventory_transfer_receiveRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/inventory_transfer_receiveRequest'
+        required: true
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/commands/inventory/transfer-send/:
+    post:
+      operationId: v1_commands_inventory_transfer_send_create
+      parameters:
+      - in: header
+        name: Idempotency-Key
+        schema:
+          type: string
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/inventory_transfer_sendRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/inventory_transfer_sendRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/inventory_transfer_sendRequest'
+        required: true
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/commands/orders/allocate/:
+    post:
+      operationId: v1_commands_orders_allocate_create
+      parameters:
+      - in: header
+        name: Idempotency-Key
+        schema:
+          type: string
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/orders_allocateRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/orders_allocateRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/orders_allocateRequest'
+        required: true
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/commands/orders/approve/:
+    post:
+      operationId: v1_commands_orders_approve_create
+      parameters:
+      - in: header
+        name: Idempotency-Key
+        schema:
+          type: string
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/orders_approveRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/orders_approveRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/orders_approveRequest'
+        required: true
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/commands/orders/cancel/:
+    post:
+      operationId: v1_commands_orders_cancel_create
+      parameters:
+      - in: header
+        name: Idempotency-Key
+        schema:
+          type: string
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/orders_cancelRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/orders_cancelRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/orders_cancelRequest'
+        required: true
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/commands/orders/create/:
+    post:
+      operationId: v1_commands_orders_create_create
+      parameters:
+      - in: header
+        name: Idempotency-Key
+        schema:
+          type: string
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/orders_createRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/orders_createRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/orders_createRequest'
+        required: true
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/commands/orders/receive/:
+    post:
+      operationId: v1_commands_orders_receive_create
+      parameters:
+      - in: header
+        name: Idempotency-Key
+        schema:
+          type: string
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/orders_receiveRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/orders_receiveRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/orders_receiveRequest'
+        required: true
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/commands/orders/return/:
+    post:
+      operationId: v1_commands_orders_return_create
+      parameters:
+      - in: header
+        name: Idempotency-Key
+        schema:
+          type: string
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/orders_returnRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/orders_returnRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/orders_returnRequest'
+        required: true
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/commands/orders/ship/:
+    post:
+      operationId: v1_commands_orders_ship_create
+      parameters:
+      - in: header
+        name: Idempotency-Key
+        schema:
+          type: string
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/orders_shipRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/orders_shipRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/orders_shipRequest'
+        required: true
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/commands/planning/accept/:
+    post:
+      operationId: v1_commands_planning_accept_create
+      parameters:
+      - in: header
+        name: Idempotency-Key
+        schema:
+          type: string
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/planning_acceptRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/planning_acceptRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/planning_acceptRequest'
+        required: true
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/commands/planning/forecast/:
+    post:
+      operationId: v1_commands_planning_forecast_create
+      parameters:
+      - in: header
+        name: Idempotency-Key
+        schema:
+          type: string
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/planning_forecastRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/planning_forecastRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/planning_forecastRequest'
+        required: true
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/commands/users/create/:
+    post:
+      operationId: v1_commands_users_create_create
+      parameters:
+      - in: header
+        name: Idempotency-Key
+        schema:
+          type: string
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/users_createRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/users_createRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/users_createRequest'
+        required: true
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/commands/users/permissions/:
+    post:
+      operationId: v1_commands_users_permissions_create
+      parameters:
+      - in: header
+        name: Idempotency-Key
+        schema:
+          type: string
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/users_permissionsRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/users_permissionsRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/users_permissionsRequest'
+        required: true
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/commands/webhooks/create/:
+    post:
+      operationId: v1_commands_webhooks_create_create
+      parameters:
+      - in: header
+        name: Idempotency-Key
+        schema:
+          type: string
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/webhooks_createRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/webhooks_createRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/webhooks_createRequest'
+        required: true
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/commands/webhooks/update/:
+    post:
+      operationId: v1_commands_webhooks_update_create
+      parameters:
+      - in: header
+        name: Idempotency-Key
+        schema:
+          type: string
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/webhooks_updateRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/webhooks_updateRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/webhooks_updateRequest'
+        required: true
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/credentials/:
+    get:
+      operationId: v1_credentials_list
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - v1
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedAPIKeyList'
+          description: ''
+  /api/v1/credentials/{id}/:
+    get:
+      operationId: v1_credentials_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this api key.
+        required: true
+      tags:
+      - v1
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIKey'
+          description: ''
+  /api/v1/dashboard/:
+    get:
+      operationId: v1_dashboard_retrieve
+      tags:
+      - v1
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/deliveries/:
+    get:
+      operationId: v1_deliveries_list
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - v1
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedDeliveryList'
+          description: ''
+  /api/v1/deliveries/{id}/:
+    get:
+      operationId: v1_deliveries_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this delivery.
+        required: true
+      tags:
+      - v1
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Delivery'
+          description: ''
+  /api/v1/documents/:
+    get:
+      operationId: v1_documents_list
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - v1
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedDocumentList'
+          description: ''
+  /api/v1/documents/{id}/:
+    get:
+      operationId: v1_documents_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this document.
+        required: true
+      tags:
+      - v1
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Document'
+          description: ''
+  /api/v1/forecasts/:
+    get:
+      operationId: v1_forecasts_list
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - v1
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedForecastRunList'
+          description: ''
+  /api/v1/forecasts/{id}/:
+    get:
+      operationId: v1_forecasts_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this forecast run.
+        required: true
+      tags:
+      - v1
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForecastRun'
+          description: ''
+  /api/v1/identities/:
+    get:
+      operationId: v1_identities_list
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - v1
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedStockIdentityList'
+          description: ''
+  /api/v1/identities/{id}/:
+    get:
+      operationId: v1_identities_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this stock identity.
+        required: true
+      tags:
+      - v1
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StockIdentity'
+          description: ''
+  /api/v1/imports/:
+    get:
+      operationId: v1_imports_list
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - v1
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedImportBatchList'
+          description: ''
+  /api/v1/imports/{id}/:
+    get:
+      operationId: v1_imports_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this import batch.
+        required: true
+      tags:
+      - v1
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImportBatch'
+          description: ''
+  /api/v1/lines/:
+    get:
+      operationId: v1_lines_list
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - v1
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedDocumentLineList'
+          description: ''
+  /api/v1/lines/{id}/:
+    get:
+      operationId: v1_lines_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this document line.
+        required: true
+      tags:
+      - v1
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentLine'
+          description: ''
+  /api/v1/memberships/:
+    get:
+      operationId: v1_memberships_list
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - v1
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedMembershipList'
+          description: ''
+  /api/v1/memberships/{id}/:
+    get:
+      operationId: v1_memberships_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this membership.
+        required: true
+      tags:
+      - v1
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Membership'
+          description: ''
+  /api/v1/movements/:
+    get:
+      operationId: v1_movements_list
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - v1
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedMovementList'
+          description: ''
+  /api/v1/movements/{id}/:
+    get:
+      operationId: v1_movements_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this movement.
+        required: true
+      tags:
+      - v1
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Movement'
+          description: ''
+  /api/v1/partners/:
+    get:
+      operationId: v1_partners_list
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - v1
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedPartnerList'
+          description: ''
+  /api/v1/partners/{id}/:
+    get:
+      operationId: v1_partners_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this partner.
+        required: true
+      tags:
+      - v1
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Partner'
+          description: ''
+  /api/v1/policies/:
+    get:
+      operationId: v1_policies_list
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - v1
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedSupplyPolicyList'
+          description: ''
+  /api/v1/policies/{id}/:
+    get:
+      operationId: v1_policies_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this supply policy.
+        required: true
+      tags:
+      - v1
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SupplyPolicy'
+          description: ''
+  /api/v1/products/:
+    get:
+      operationId: v1_products_list
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - v1
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedProductList'
+          description: ''
+  /api/v1/products/{id}/:
+    get:
+      operationId: v1_products_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this product.
+        required: true
+      tags:
+      - v1
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+          description: ''
+  /api/v1/reservations/:
+    get:
+      operationId: v1_reservations_list
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - v1
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedReservationList'
+          description: ''
+  /api/v1/reservations/{id}/:
+    get:
+      operationId: v1_reservations_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this reservation.
+        required: true
+      tags:
+      - v1
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reservation'
+          description: ''
+  /api/v1/shipments/:
+    get:
+      operationId: v1_shipments_list
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - v1
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedShipmentList'
+          description: ''
+  /api/v1/shipments/{id}/:
+    get:
+      operationId: v1_shipments_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this shipment.
+        required: true
+      tags:
+      - v1
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Shipment'
+          description: ''
+  /api/v1/trace/{id}/:
+    get:
+      operationId: v1_trace_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - v1
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/transfers/:
+    get:
+      operationId: v1_transfers_list
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - v1
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedTransferList'
+          description: ''
+  /api/v1/transfers/{id}/:
+    get:
+      operationId: v1_transfers_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this transfer.
+        required: true
+      tags:
+      - v1
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transfer'
+          description: ''
+  /api/v1/warehouses/:
+    get:
+      operationId: v1_warehouses_list
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - v1
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedWarehouseList'
+          description: ''
+  /api/v1/warehouses/{id}/:
+    get:
+      operationId: v1_warehouses_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this warehouse.
+        required: true
+      tags:
+      - v1
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Warehouse'
+          description: ''
+  /api/v1/webhooks/:
+    get:
+      operationId: v1_webhooks_list
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - v1
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedWebhookList'
+          description: ''
+  /api/v1/webhooks/{id}/:
+    get:
+      operationId: v1_webhooks_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this webhook.
+        required: true
+      tags:
+      - v1
+      security:
+      - bearerAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhook'
+          description: ''
+components:
+  schemas:
+    APIKey:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        name:
+          type: string
+          maxLength: 100
+        prefix:
+          type: string
+          maxLength: 12
+        scopes: {}
+        expires_at:
+          type: string
+          format: date-time
+        revoked:
+          type: boolean
+        organization:
+          type: integer
+        user:
+          type: integer
+      required:
+      - created_at
+      - expires_at
+      - id
+      - name
+      - organization
+      - prefix
+      - user
+    AuditEvent:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        action:
+          type: string
+          maxLength: 100
+        entity:
+          type: string
+          maxLength: 100
+        data: {}
+        organization:
+          type: integer
+        actor:
+          type: integer
+          nullable: true
+      required:
+      - action
+      - created_at
+      - entity
+      - id
+      - organization
+    Bin:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        code:
+          type: string
+          maxLength: 40
+        organization:
+          type: integer
+        warehouse:
+          type: integer
+      required:
+      - code
+      - created_at
+      - id
+      - organization
+      - warehouse
+    CreateBin:
+      type: object
+      properties:
+        warehouse:
+          type: integer
+        code:
+          type: string
+          maxLength: 40
+      required:
+      - code
+      - warehouse
+    CreatePartner:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 200
+        kind:
+          $ref: '#/components/schemas/PartnerKindEnum'
+        email:
+          oneOf:
+          - type: string
+            format: email
+            maxLength: 254
+          - type: string
+            maxLength: 0
+        metadata: {}
+      required:
+      - kind
+      - name
+    CreateProduct:
+      type: object
+      properties:
+        sku:
+          type: string
+          maxLength: 80
+        name:
+          type: string
+          maxLength: 200
+        unit:
+          type: string
+          maxLength: 24
+        purchase_unit:
+          type: string
+          maxLength: 24
+        purchase_factor:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,14}(?:\.\d{0,4})?$
+        tracking:
+          $ref: '#/components/schemas/TrackingEnum'
+        metadata: {}
+        active:
+          type: boolean
+      required:
+      - name
+      - sku
+    CreateSupplyPolicy:
+      type: object
+      properties:
+        product:
+          type: integer
+        warehouse:
+          type: integer
+        supplier:
+          type: integer
+        lead_days:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        review_days:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        safety_stock:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,14}(?:\.\d{0,4})?$
+        reorder_point:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,14}(?:\.\d{0,4})?$
+        target_stock:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,14}(?:\.\d{0,4})?$
+        minimum_order:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,14}(?:\.\d{0,4})?$
+        pack_size:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,14}(?:\.\d{0,4})?$
+      required:
+      - product
+      - supplier
+      - warehouse
+    CreateWarehouse:
+      type: object
+      properties:
+        code:
+          type: string
+          maxLength: 40
+        name:
+          type: string
+          maxLength: 160
+      required:
+      - code
+      - name
+    Delivery:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        attempts:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        status:
+          type: string
+          maxLength: 12
+        next_attempt:
+          type: string
+          format: date-time
+        response_code:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+        organization:
+          type: integer
+        event:
+          type: integer
+        webhook:
+          type: integer
+      required:
+      - created_at
+      - event
+      - id
+      - next_attempt
+      - organization
+      - webhook
+    Document:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        kind:
+          $ref: '#/components/schemas/DocumentKindEnum'
+        reference:
+          type: string
+          maxLength: 60
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        due_date:
+          type: string
+          format: date
+          nullable: true
+        notes:
+          type: string
+        approved_at:
+          type: string
+          format: date-time
+          nullable: true
+        organization:
+          type: integer
+        partner:
+          type: integer
+        warehouse:
+          type: integer
+      required:
+      - created_at
+      - id
+      - kind
+      - organization
+      - partner
+      - reference
+      - warehouse
+    DocumentKindEnum:
+      enum:
+      - purchase
+      - sale
+      type: string
+      description: |-
+        * `purchase` - Purchase order
+        * `sale` - Sales order
+    DocumentLine:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        product_sku:
+          type: string
+          readOnly: true
+        product_name:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        quantity:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,14}(?:\.\d{0,4})?$
+        unit_factor:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,14}(?:\.\d{0,4})?$
+        processed:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,14}(?:\.\d{0,4})?$
+        cancelled:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,14}(?:\.\d{0,4})?$
+        organization:
+          type: integer
+        document:
+          type: integer
+        product:
+          type: integer
+      required:
+      - created_at
+      - document
+      - id
+      - organization
+      - product
+      - product_name
+      - product_sku
+    ForecastRun:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        result: {}
+        recommended:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,14}(?:\.\d{0,4})?$
+        organization:
+          type: integer
+        policy:
+          type: integer
+        document:
+          type: integer
+          nullable: true
+      required:
+      - created_at
+      - id
+      - organization
+      - policy
+      - result
+    ImportBatch:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        rows: {}
+        errors: {}
+        committed_at:
+          type: string
+          format: date-time
+          nullable: true
+        organization:
+          type: integer
+        actor:
+          type: integer
+      required:
+      - actor
+      - created_at
+      - id
+      - organization
+      - rows
+    Membership:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        username:
+          type: string
+          readOnly: true
+        active:
+          type: boolean
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        role:
+          $ref: '#/components/schemas/RoleEnum'
+        totp_enabled:
+          type: boolean
+        organization:
+          type: integer
+        user:
+          type: integer
+        warehouses:
+          type: array
+          items:
+            type: integer
+      required:
+      - active
+      - created_at
+      - id
+      - organization
+      - user
+      - username
+    Movement:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        quantity:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,14}(?:\.\d{0,4})?$
+        reserved_delta:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,14}(?:\.\d{0,4})?$
+        kind:
+          type: string
+          maxLength: 24
+        reason:
+          type: string
+          maxLength: 500
+        organization:
+          type: integer
+        balance:
+          type: integer
+        line:
+          type: integer
+          nullable: true
+        shipment:
+          type: integer
+          nullable: true
+        transfer:
+          type: integer
+          nullable: true
+        source_movement:
+          type: integer
+          nullable: true
+        actor:
+          type: integer
+      required:
+      - actor
+      - balance
+      - created_at
+      - id
+      - kind
+      - organization
+    PaginatedAPIKeyList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/APIKey'
+    PaginatedAuditEventList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/AuditEvent'
+    PaginatedBinList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Bin'
+    PaginatedDeliveryList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Delivery'
+    PaginatedDocumentLineList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/DocumentLine'
+    PaginatedDocumentList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Document'
+    PaginatedForecastRunList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ForecastRun'
+    PaginatedImportBatchList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ImportBatch'
+    PaginatedMembershipList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Membership'
+    PaginatedMovementList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Movement'
+    PaginatedPartnerList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Partner'
+    PaginatedProductList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+    PaginatedReservationList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Reservation'
+    PaginatedShipmentList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Shipment'
+    PaginatedStockBalanceList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/StockBalance'
+    PaginatedStockIdentityList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/StockIdentity'
+    PaginatedSupplyPolicyList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/SupplyPolicy'
+    PaginatedTransferList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Transfer'
+    PaginatedWarehouseList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Warehouse'
+    PaginatedWebhookList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Webhook'
+    Partner:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        name:
+          type: string
+          maxLength: 200
+        kind:
+          $ref: '#/components/schemas/PartnerKindEnum'
+        email:
+          oneOf:
+          - type: string
+            format: email
+            maxLength: 254
+          - type: string
+            maxLength: 0
+        metadata: {}
+        organization:
+          type: integer
+      required:
+      - created_at
+      - id
+      - kind
+      - name
+      - organization
+    PartnerKindEnum:
+      enum:
+      - supplier
+      - customer
+      type: string
+      description: |-
+        * `supplier` - Supplier
+        * `customer` - Customer
+    Product:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        sku:
+          type: string
+          maxLength: 80
+        name:
+          type: string
+          maxLength: 200
+        unit:
+          type: string
+          maxLength: 24
+        purchase_unit:
+          type: string
+          maxLength: 24
+        purchase_factor:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,14}(?:\.\d{0,4})?$
+        tracking:
+          $ref: '#/components/schemas/TrackingEnum'
+        metadata: {}
+        active:
+          type: boolean
+        organization:
+          type: integer
+      required:
+      - created_at
+      - id
+      - name
+      - organization
+      - sku
+    Reservation:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        quantity:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,14}(?:\.\d{0,4})?$
+        organization:
+          type: integer
+        line:
+          type: integer
+        balance:
+          type: integer
+      required:
+      - balance
+      - created_at
+      - id
+      - line
+      - organization
+    RoleEnum:
+      enum:
+      - administrator
+      - purchasing
+      - warehouse
+      - sales
+      - readonly
+      type: string
+      description: |-
+        * `administrator` - Administrator
+        * `purchasing` - Purchasing
+        * `warehouse` - Warehouse
+        * `sales` - Sales
+        * `readonly` - Readonly
+    Shipment:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        carrier:
+          type: string
+          maxLength: 80
+        tracking:
+          type: string
+          maxLength: 200
+        organization:
+          type: integer
+        document:
+          type: integer
+      required:
+      - created_at
+      - document
+      - id
+      - organization
+    StateEnum:
+      enum:
+      - available
+      - quarantine
+      - transit
+      type: string
+      description: |-
+        * `available` - Available
+        * `quarantine` - Quarantine
+        * `transit` - In transit
+    StatusEnum:
+      enum:
+      - draft
+      - approved
+      - partial
+      - complete
+      - cancelled
+      type: string
+      description: |-
+        * `draft` - Draft
+        * `approved` - Approved
+        * `partial` - Partial
+        * `complete` - Complete
+        * `cancelled` - Cancelled
+    StockBalance:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        state:
+          allOf:
+          - $ref: '#/components/schemas/StateEnum'
+          default: available
+        on_hand:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,14}(?:\.\d{0,4})?$
+        reserved:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,14}(?:\.\d{0,4})?$
+        organization:
+          type: integer
+        identity:
+          type: integer
+        bin:
+          type: integer
+      required:
+      - bin
+      - created_at
+      - id
+      - identity
+      - organization
+    StockIdentity:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        product_sku:
+          type: string
+          readOnly: true
+        product_name:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        code:
+          type: string
+          default: ''
+          maxLength: 100
+        expires_on:
+          type: string
+          format: date
+          nullable: true
+        organization:
+          type: integer
+        product:
+          type: integer
+      required:
+      - created_at
+      - id
+      - organization
+      - product
+      - product_name
+      - product_sku
+    SupplyPolicy:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        product_sku:
+          type: string
+          readOnly: true
+        product_name:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        lead_days:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        review_days:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        safety_stock:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,14}(?:\.\d{0,4})?$
+        reorder_point:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,14}(?:\.\d{0,4})?$
+        target_stock:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,14}(?:\.\d{0,4})?$
+        minimum_order:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,14}(?:\.\d{0,4})?$
+        pack_size:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,14}(?:\.\d{0,4})?$
+        organization:
+          type: integer
+        product:
+          type: integer
+        warehouse:
+          type: integer
+        supplier:
+          type: integer
+      required:
+      - created_at
+      - id
+      - organization
+      - product
+      - product_name
+      - product_sku
+      - supplier
+      - warehouse
+    TrackingEnum:
+      enum:
+      - none
+      - lot
+      - serial
+      type: string
+      description: |-
+        * `none` - Quantity
+        * `lot` - Lot
+        * `serial` - Serial
+    Transfer:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        quantity:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,14}(?:\.\d{0,4})?$
+        received:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,14}(?:\.\d{0,4})?$
+        organization:
+          type: integer
+        source:
+          type: integer
+        destination:
+          type: integer
+      required:
+      - created_at
+      - destination
+      - id
+      - organization
+      - source
+    UpdateBin:
+      type: object
+      properties:
+        warehouse:
+          type: integer
+        code:
+          type: string
+          maxLength: 40
+    UpdatePartner:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 200
+        kind:
+          $ref: '#/components/schemas/PartnerKindEnum'
+        email:
+          oneOf:
+          - type: string
+            format: email
+            maxLength: 254
+          - type: string
+            maxLength: 0
+        metadata: {}
+    UpdateProduct:
+      type: object
+      properties:
+        sku:
+          type: string
+          maxLength: 80
+        name:
+          type: string
+          maxLength: 200
+        unit:
+          type: string
+          maxLength: 24
+        purchase_unit:
+          type: string
+          maxLength: 24
+        purchase_factor:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,14}(?:\.\d{0,4})?$
+        tracking:
+          $ref: '#/components/schemas/TrackingEnum'
+        metadata: {}
+        active:
+          type: boolean
+    UpdateSupplyPolicy:
+      type: object
+      properties:
+        product:
+          type: integer
+        warehouse:
+          type: integer
+        supplier:
+          type: integer
+        lead_days:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        review_days:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        safety_stock:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,14}(?:\.\d{0,4})?$
+        reorder_point:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,14}(?:\.\d{0,4})?$
+        target_stock:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,14}(?:\.\d{0,4})?$
+        minimum_order:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,14}(?:\.\d{0,4})?$
+        pack_size:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,14}(?:\.\d{0,4})?$
+    UpdateWarehouse:
+      type: object
+      properties:
+        code:
+          type: string
+          maxLength: 40
+        name:
+          type: string
+          maxLength: 160
+    Warehouse:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        code:
+          type: string
+          maxLength: 40
+        name:
+          type: string
+          maxLength: 160
+        organization:
+          type: integer
+      required:
+      - code
+      - created_at
+      - id
+      - name
+      - organization
+    Webhook:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        url:
+          type: string
+          format: uri
+          maxLength: 500
+        active:
+          type: boolean
+        organization:
+          type: integer
+      required:
+      - created_at
+      - id
+      - organization
+      - url
+    credentials_createRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 500
+        scopes: {}
+        days:
+          type: integer
+          minimum: 1
+      required:
+      - name
+      - scopes
+    credentials_revokeRequest:
+      type: object
+      properties:
+        credential:
+          type: integer
+          minimum: 1
+      required:
+      - credential
+    deliveries_replayRequest:
+      type: object
+      properties:
+        delivery:
+          type: integer
+          minimum: 1
+      required:
+      - delivery
+    imports_commitRequest:
+      type: object
+      properties:
+        batch:
+          type: integer
+          minimum: 1
+      required:
+      - batch
+    imports_previewRequest:
+      type: object
+      properties:
+        csv:
+          type: string
+          maxLength: 1048576
+      required:
+      - csv
+    inventory_adjustRequest:
+      type: object
+      properties:
+        product:
+          type: integer
+          minimum: 1
+        bin:
+          type: integer
+          minimum: 1
+        quantity:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,14}(?:\.\d{0,4})?$
+        reason:
+          type: string
+          maxLength: 500
+        code:
+          type: string
+          maxLength: 500
+        expires_on:
+          type: string
+          format: date
+          nullable: true
+        state:
+          type: string
+          maxLength: 500
+        count:
+          type: boolean
+      required:
+      - bin
+      - product
+      - quantity
+      - reason
+    inventory_dispositionRequest:
+      type: object
+      properties:
+        balance:
+          type: integer
+          minimum: 1
+        quantity:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,14}(?:\.\d{0,4})?$
+        disposition:
+          type: string
+          maxLength: 500
+        reason:
+          type: string
+          maxLength: 500
+      required:
+      - balance
+      - disposition
+      - quantity
+      - reason
+    inventory_reverseRequest:
+      type: object
+      properties:
+        movement:
+          type: integer
+          minimum: 1
+        reason:
+          type: string
+          maxLength: 500
+      required:
+      - movement
+      - reason
+    inventory_transfer_receiveRequest:
+      type: object
+      properties:
+        transfer:
+          type: integer
+          minimum: 1
+        quantity:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,14}(?:\.\d{0,4})?$
+      required:
+      - quantity
+      - transfer
+    inventory_transfer_sendRequest:
+      type: object
+      properties:
+        balance:
+          type: integer
+          minimum: 1
+        destination:
+          type: integer
+          minimum: 1
+        quantity:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,14}(?:\.\d{0,4})?$
+      required:
+      - balance
+      - destination
+      - quantity
+    orders_allocateRequest:
+      type: object
+      properties:
+        line:
+          type: integer
+          minimum: 1
+        balance:
+          type: integer
+          minimum: 1
+        quantity:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,14}(?:\.\d{0,4})?$
+      required:
+      - balance
+      - line
+      - quantity
+    orders_approveRequest:
+      type: object
+      properties:
+        document:
+          type: integer
+          minimum: 1
+      required:
+      - document
+    orders_cancelRequest:
+      type: object
+      properties:
+        document:
+          type: integer
+          minimum: 1
+      required:
+      - document
+    orders_createRequest:
+      type: object
+      properties:
+        kind:
+          type: string
+          maxLength: 500
+        reference:
+          type: string
+          maxLength: 500
+        partner:
+          type: integer
+          minimum: 1
+        warehouse:
+          type: integer
+          minimum: 1
+        lines: {}
+        due_date:
+          type: string
+          format: date
+          nullable: true
+        notes:
+          type: string
+          maxLength: 500
+      required:
+      - kind
+      - lines
+      - partner
+      - reference
+      - warehouse
+    orders_receiveRequest:
+      type: object
+      properties:
+        line:
+          type: integer
+          minimum: 1
+        bin:
+          type: integer
+          minimum: 1
+        quantity:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,14}(?:\.\d{0,4})?$
+        purchase_units:
+          type: boolean
+        code:
+          type: string
+          maxLength: 500
+        expires_on:
+          type: string
+          format: date
+          nullable: true
+        quarantine:
+          type: boolean
+      required:
+      - bin
+      - line
+      - quantity
+    orders_returnRequest:
+      type: object
+      properties:
+        movement:
+          type: integer
+          minimum: 1
+        quantity:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,14}(?:\.\d{0,4})?$
+        reason:
+          type: string
+          maxLength: 500
+        bin:
+          type: integer
+          minimum: 1
+        balance:
+          type: integer
+          minimum: 1
+      required:
+      - movement
+      - quantity
+      - reason
+    orders_shipRequest:
+      type: object
+      properties:
+        line:
+          type: integer
+          minimum: 1
+        reservation:
+          type: integer
+          minimum: 1
+        quantity:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,14}(?:\.\d{0,4})?$
+        carrier:
+          type: string
+          maxLength: 500
+        tracking:
+          type: string
+          maxLength: 500
+      required:
+      - line
+      - quantity
+      - reservation
+    planning_acceptRequest:
+      type: object
+      properties:
+        forecast:
+          type: integer
+          minimum: 1
+        reference:
+          type: string
+          maxLength: 500
+      required:
+      - forecast
+      - reference
+    planning_forecastRequest:
+      type: object
+      properties:
+        policy:
+          type: integer
+          minimum: 1
+      required:
+      - policy
+    users_createRequest:
+      type: object
+      properties:
+        username:
+          type: string
+          maxLength: 500
+        password:
+          type: string
+          maxLength: 500
+        role:
+          type: string
+          maxLength: 500
+        warehouses: {}
+        email:
+          type: string
+          maxLength: 500
+      required:
+      - password
+      - role
+      - username
+      - warehouses
+    users_permissionsRequest:
+      type: object
+      properties:
+        membership:
+          type: integer
+          minimum: 1
+        role:
+          type: string
+          maxLength: 500
+        warehouses: {}
+        active:
+          type: boolean
+      required:
+      - membership
+      - role
+      - warehouses
+    webhooks_createRequest:
+      type: object
+      properties:
+        url:
+          type: string
+          maxLength: 500
+      required:
+      - url
+    webhooks_updateRequest:
+      type: object
+      properties:
+        webhook:
+          type: integer
+          minimum: 1
+        active:
+          type: boolean
+      required:
+      - active
+      - webhook
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: OSSCM API credential
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid

@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.env
+*.sqlite3
+node_modules/
+dist/
+coverage/
+staticfiles/
+backups/
+benchmark-results*.json
+.DS_Store

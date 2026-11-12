@@ -1,0 +1,32 @@
+{
+  "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+  "machine": "arm64",
+  "logical_cpus": 8,
+  "python": "3.14.4",
+  "postgresql": 140021,
+  "concurrent_users": 20,
+  "products": 10000,
+  "warehouses": 5,
+  "baseline_movements": 1000000,
+  "http_endpoint": "http://127.0.0.1:8001",
+  "elapsed_seconds": 4.51,
+  "requests_per_second": 443.75,
+  "results": {
+    "read": {
+      "requests": 1000,
+      "p50_ms": 41.71,
+      "p95_ms": 122.87,
+      "max_ms": 226.99
+    },
+    "write": {
+      "requests": 1000,
+      "p50_ms": 22.86,
+      "p95_ms": 83.69,
+      "max_ms": 145.01
+    }
+  },
+  "error_count": 0,
+  "errors": [],
+  "passes_target": true,
+  "methodology": "Actual HTTP requests: 20 independent bearer credentials, alternating paginated balance reads and atomic adjustment writes. Warm database; no WAN latency. Synthetic fixture insertion bypasses operational services only during setup."
+}

@@ -1,0 +1,77 @@
+x-backend: &backend
+  build: ./backend
+  env_file: .env
+  environment:
+    DATABASE_URL: postgresql://osscm:${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD}@db:5432/osscm
+    CELERY_BROKER_URL: amqp://osscm:${RABBITMQ_PASSWORD:?Set RABBITMQ_PASSWORD}@broker:5672//
+    DEBUG: "false"
+  depends_on:
+    db: {condition: service_healthy}
+    broker: {condition: service_healthy}
+  init: true
+  restart: unless-stopped
+services:
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: osscm
+      POSTGRES_DB: osscm
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD}
+    volumes: [postgres_data:/var/lib/postgresql/data]
+    healthcheck:
+      test: [CMD-SHELL, pg_isready -U osscm -d osscm]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+    restart: unless-stopped
+  broker:
+    image: rabbitmq:4-alpine
+    environment:
+      RABBITMQ_DEFAULT_USER: osscm
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD:?Set RABBITMQ_PASSWORD}
+    volumes: [rabbitmq_data:/var/lib/rabbitmq]
+    healthcheck:
+      test: [CMD, rabbitmq-diagnostics, -q, ping]
+      interval: 10s
+      timeout: 10s
+      retries: 12
+    restart: unless-stopped
+  migrate:
+    <<: *backend
+    command: [python, manage.py, migrate, --noinput]
+    restart: "no"
+  api:
+    <<: *backend
+    depends_on:
+      migrate: {condition: service_completed_successfully}
+    healthcheck:
+      test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen(urllib.request.Request('http://localhost:8000/health/', headers={'X-Forwarded-Proto':'https'}))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+  worker:
+    <<: *backend
+    command: [celery, -A, config, worker, --loglevel=INFO, --concurrency=2]
+    depends_on:
+      migrate: {condition: service_completed_successfully}
+  scheduler:
+    <<: *backend
+    command: [celery, -A, config, beat, --loglevel=INFO, --schedule=/tmp/celerybeat-schedule]
+    depends_on:
+      migrate: {condition: service_completed_successfully}
+  frontend:
+    build: ./frontend
+    restart: unless-stopped
+  proxy:
+    image: caddy:2-alpine
+    environment:
+      DOMAIN: ${DOMAIN:?Set DOMAIN}
+    ports: ["80:80", "443:443"]
+    volumes: [./deploy/Caddyfile:/etc/caddy/Caddyfile:ro, caddy_data:/data, caddy_config:/config]
+    depends_on: [api, frontend]
+    restart: unless-stopped
+volumes:
+  postgres_data:
+  rabbitmq_data:
+  caddy_data:
+  caddy_config:
